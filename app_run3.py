@@ -97,8 +97,11 @@ for cfg_file in config_table.values():
         try:
             # 执行 1.py 并等待其完成
 
-            subprocess.run(['python', 'stimulate_zuizhong1.0.py'
-                               , cfg_file['芯片号'], cfg_file['种子'], cfg_file['游戏种类'], cfg_file['实验绝对序号'],
+            subprocess.run(['python', 'stimulate_zuizhong1.0.py',
+                            cfg_file['芯片号'],
+                            cfg_file['种子'],
+                            cfg_file['游戏种类'],
+                            cfg_file['实验绝对序号'],
                             cfg_file['单次实验轮次']])
 
             # 1.py 执行完毕后，尝试优雅地终止 3.exe
