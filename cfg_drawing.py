@@ -127,7 +127,7 @@ class GridSelector:
         filename = self.filename_entry.get().strip()
         if not filename:  # Default filename if not specified
             filename = 'ele_number.csv'
-        convert_selections_to_ele_format('selections.csv', filename)
+        convert_selections_to_ele_format('./buffer/selections.csv', filename)
 
     def on_mouse_down(self, event):
         self.start_cell = (event.x // self.cell_size, event.y // self.cell_size)
