@@ -119,7 +119,7 @@ class GridSelector:
                                              (y + 1) * self.cell_size, fill=colors[i % len(colors)], outline="gray", tags="preview")
 
     def generate_csv(self):
-        with open('selections.csv', 'w', newline='') as csvfile:
+        with open('./buffer/selections.csv', 'w', newline='') as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(self.selections.keys())
             writer.writerows(zip_longest(*self.selections.values(), fillvalue=''))
@@ -177,7 +177,7 @@ def convert_selections_to_ele_format(input_path, output_path):
                 if value:  # 忽略空值
                     selections[column].append(eval(value))
 
-    with open("configfile" + output_path, 'w', newline='') as csvfile:
+    with open("configfile/" + output_path, 'w', newline='') as csvfile:
         fieldnames = ['Region', 'Electrode', 'Elec_Number', 'X', 'Y']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
