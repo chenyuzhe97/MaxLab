@@ -1,1 +1,5 @@
-## MaxLab API control
+## MaxLab 项目管理
+
+### cfg_drawing.py
+- 电极区域程序可视化生成器
+- 配置刺激电极和检测电极还需要手动设置
