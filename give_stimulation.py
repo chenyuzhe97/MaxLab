@@ -75,14 +75,6 @@ def distribution_stimulation(stim_function_number, stim_electrode_area):
     # cpp程序
 
 
-# def stim_ruler(area,mode):
-# #     # 等我吃完饭再写！！！
-# #     area_mapping = {
-# #         0:,
-# #     1:,
-# #     2:,
-# #     3:,
-# #     }
 
 def deal_cards(cards, stim_electrode_area):
     original_cards = [['red_1', 0], ['red_2', 1], ['black_1', 2], ['black_2', 3]]
