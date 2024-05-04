@@ -29,12 +29,13 @@ def calculate_code(card_list, code_mapping):
 
 def stim_ruler(area,mode):
     # 等我吃完饭再写！！！
-    area_mapping = {
-        0:,
-    1:,
-    2:,
-    3:,
-    }
+    pass
+    # area_mapping = {
+    #     0:,
+    # 1:,
+    # 2:,
+    # 3:,
+    # }
 
 cards = [['red_1', 0], ['red_2', 1], ['black_1', 2], ['black_2', 3]]
 cards = random.sample(cards, 4)
