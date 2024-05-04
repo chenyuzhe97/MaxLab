@@ -66,18 +66,25 @@ def distribution_stimulation(stim_function_number, stim_electrode_area):
     length = len(stim_electrode_area)
     # 构造二进制掩码，长度与 stim_electrode_area 相同
     binary_mask = f'{stim_function_number:0{length}b}'
-    print(binary_mask)
-
+    reversed_electrode_area = stim_electrode_area[::-1]
     # 筛选需要保留的元素
-    selected_region = [area for i, area in enumerate(stim_electrode_area) if binary_mask[::-1][i] == '1']
-    print(selected_region)
+    selected_region = [area for i, area in enumerate(reversed_electrode_area) if binary_mask[::-1][i] == '1']
+    print("刺激位置为：", binary_mask)
+    print("对应区域电极编号为：", selected_region)
     # stim_region(selected_region, stim_mode, 1, 0.5, array)
     # cpp程序
 
 
+def deal_cards(cards, stim_electrode_area, cards_number):
+    if cards_number == 4:
+        original_cards = [['red_1', 0], ['red_2', 1], ['black_1', 2], ['black_2', 3]]
+    elif cards_number == 8:
+        original_cards = [['red_1', 0], ['red_1', 1], ['red_2', 2], ['red_2', 3],
+                          ['black_1', 4], ['black_1', 5], ['black_2', 6], ['black_2', 7]]
+    else:
+        raise "总牌数都不知道，程序不知道怎么运行。"
+    print("注意一下你的游戏总牌数为:", cards_number, "\n牌池为:", original_cards)
 
-def deal_cards(cards, stim_electrode_area):
-    original_cards = [['red_1', 0], ['red_2', 1], ['black_1', 2], ['black_2', 3]]
     length_of_distribution = 3
     scale_number = 2
 
@@ -89,26 +96,15 @@ def deal_cards(cards, stim_electrode_area):
     print("最大编码长度为:", maximum_coding_length)
     print("能容纳组合的最大长度为:", 2 ** maximum_coding_length)
     print("当前组合数量为:", combinations_count)
-
-    # # 传入的cards应该放这里
-    # cards = [['red_1', 0], ['red_2', 1], ['black_1', 2], ['black_2', 3]]
-    # cards = random.sample(cards, length_of_distribution)
-    # organ_cards = cards[:3]
-
-    print(code_mapping)
-    # 数据结构：
-    # mapping编号，排序一下
-    # 映射表
-    # 电极区域制作表
+    print("对应编码表为：", code_mapping)
 
     mapping_cards = cards
     mapping_cards = sorted(mapping_cards, key=lambda x: x[1])
     mapping_id = [cards_number[1] for cards_number in mapping_cards]
     mapping_id = tuple(mapping_id)
-    print(mapping_id)
-
     stim_function_number = code_mapping[mapping_id]
-    print(stim_function_number)
+    print("当前编码表为:", mapping_id)
+    print("调用的刺激方案为：", stim_function_number)
     distribution_stimulation(stim_function_number + 1, stim_electrode_area)
 
 
@@ -118,4 +114,4 @@ if __name__ == '__main__':
     cards = [['red_1', 0], ['red_2', 1], ['black_1', 2], ['black_2', 3]]
     cards = random.sample(cards, 3)
     organ_cards = cards[:3]
-    deal_cards(cards, stim_electrode_area)
+    deal_cards(cards, stim_electrode_area, 4)
