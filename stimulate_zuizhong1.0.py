@@ -245,8 +245,8 @@ if __name__ == "__main__":
     # ele_num = get_ele("ele_number3.csv")
     initialize_system()
     filename = 'A:{}实验时间{}种子编号{}芯片号{}游戏种类{}绝对实验编号{}轮次'.format(formatted_time, seed, chip_number,
-                                                                                     game_type, experiment_number,
-                                                                                     epoch)
+                                                              game_type, experiment_number,
+                                                              epoch)
     print(filename)
     game = Game()
 

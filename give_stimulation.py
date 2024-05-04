@@ -2,6 +2,45 @@ import random
 from itertools import combinations
 
 
+def factorial(n):
+    """
+    专门用来计算阶乘
+    返回值：阶乘结果 n!
+    -------
+
+    """
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n - 1)
+
+
+def minimum_power_resolution(base, n):
+    """
+
+    参数
+    ----------
+    base:底数
+    n：你需要计算的数字
+
+    返回值:返回比n大的，由base控制的最小幂级数
+    例如:minimum_power_resolution(2,56)，返回结果为6，因为2^6=64，大于56
+    -------
+
+    """
+    power = 0
+    while base ** power <= n:
+        power += 1
+    return power
+
+
+# 计算排列组合数
+def combination(n, k):
+    """
+    计算排列组合，肯定会的吧！
+    返回值：组合数结果
+    """
+    return factorial(n) // (factorial(k) * factorial(n - k))
 
 
 def generate_combination_codes(cards, max_combinations):
@@ -21,55 +60,70 @@ def generate_combination_codes(cards, max_combinations):
 
     return code_mapping
 
-def calculate_code(card_list, code_mapping):
-    card_set = set(card_list)
-    sorted_set = sorted(card_set)
-    combination_tuple = tuple(sorted_set)
-    return code_mapping[combination_tuple]
 
-def stim_ruler(area,mode):
-    # 等我吃完饭再写！！！
-    pass
-    # area_mapping = {
-    #     0:,
-    # 1:,
-    # 2:,
-    # 3:,
-    # }
+def distribution_stimulation(stim_function_number, stim_electrode_area):
+    # 获取 stim_electrode_area 的长度
+    length = len(stim_electrode_area)
+    # 构造二进制掩码，长度与 stim_electrode_area 相同
+    binary_mask = f'{stim_function_number:0{length}b}'
+    print(binary_mask)
 
-cards = [['red_1', 0], ['red_2', 1], ['black_1', 2], ['black_2', 3]]
-cards = random.sample(cards, 4)
-organ_cards = cards[:3]
-
-code_mapping = generate_combination_codes(cards, 3)
-print(code_mapping)
-# 数据结构：
-# mapping编号，排序一下
-# 映射表
-# 电极区域制作表
-
-mapping_cards = organ_cards
-mapping_cards = sorted(mapping_cards, key=lambda x: x[1])
-maping_ID = [cards_number[1] for cards_number in mapping_cards]
-maping_ID = tuple(maping_ID)
-print(maping_ID)
+    # 筛选需要保留的元素
+    selected_region = [area for i, area in enumerate(stim_electrode_area) if binary_mask[::-1][i] == '1']
+    print(selected_region)
+    # stim_region(selected_region, stim_mode, 1, 0.5, array)
+    # cpp程序
 
 
-print(code_mapping[maping_ID])
-# 012->0->area0
-# 013->1->area1
-# 123->2->area2
-if code_mapping[maping_ID]
-stim_area =
+# def stim_ruler(area,mode):
+# #     # 等我吃完饭再写！！！
+# #     area_mapping = {
+# #         0:,
+# #     1:,
+# #     2:,
+# #     3:,
+# #     }
 
-# 刺激是相同的
+def deal_cards(cards, stim_electrode_area):
+    original_cards = [['red_1', 0], ['red_2', 1], ['black_1', 2], ['black_2', 3]]
+    length_of_distribution = 3
+    scale_number = 2
 
-#
-# if card == 'red_1':
-#     stim_region(ele_num[region], red, 1, 0.5, array)
-# elif card == 'red_2':
-#     stim_region(ele_num[region], red, 2, 0.5, array)
-# elif card == 'black_1':
-#     stim_region(ele_num[region], black, 1, 0.5, array)
-# elif card == 'black_2':
-#     stim_region(ele_num[region], black, 2, 0.5, array)
+    length_cards = len(original_cards)
+    combinations_count = combination(length_cards, length_of_distribution)
+    maximum_coding_length = minimum_power_resolution(scale_number, combinations_count)
+    code_mapping = generate_combination_codes(original_cards, length_of_distribution)
+
+    print("最大编码长度为:", maximum_coding_length)
+    print("能容纳组合的最大长度为:", 2 ** maximum_coding_length)
+    print("当前组合数量为:", combinations_count)
+
+    # # 传入的cards应该放这里
+    # cards = [['red_1', 0], ['red_2', 1], ['black_1', 2], ['black_2', 3]]
+    # cards = random.sample(cards, length_of_distribution)
+    # organ_cards = cards[:3]
+
+    print(code_mapping)
+    # 数据结构：
+    # mapping编号，排序一下
+    # 映射表
+    # 电极区域制作表
+
+    mapping_cards = cards
+    mapping_cards = sorted(mapping_cards, key=lambda x: x[1])
+    mapping_id = [cards_number[1] for cards_number in mapping_cards]
+    mapping_id = tuple(mapping_id)
+    print(mapping_id)
+
+    stim_function_number = code_mapping[mapping_id]
+    print(stim_function_number)
+    distribution_stimulation(stim_function_number + 1, stim_electrode_area)
+
+
+if __name__ == '__main__':
+    # # 传入的cards应该放这里
+    stim_electrode_area = [6, 7, 8, 9]
+    cards = [['red_1', 0], ['red_2', 1], ['black_1', 2], ['black_2', 3]]
+    cards = random.sample(cards, 3)
+    organ_cards = cards[:3]
+    deal_cards(cards, stim_electrode_area)
